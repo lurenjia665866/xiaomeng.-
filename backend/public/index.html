@@ -364,10 +364,26 @@
 </div>
 
 <!-- 聊天 -->
-<div class="chat-popup">
-  <div class="chat-head"><span class="chat-head-title">💬 小萌客服</span><button class="chat-head-close">✕</button></div>
-  <div class="chat-body"><div class="chat-msg chat-msg-bot">您好 👋 车辆抵押有什么可以帮您？</div></div>
-  <div class="chat-foot"><input type="text" placeholder="输入问题..."><button type="button">➤</button></div>
+<div class="chat-popup" id="evalPopup">
+  <div class="chat-popup-header">
+    <div class="chat-popup-brand">小萌极速融</div>
+    <div class="chat-popup-title">免费评估车辆可贷额度</div>
+    <div class="chat-popup-subtitle">长安新生授权 · 全国头部代理</div>
+    <button class="chat-popup-close">✕</button>
+  </div>
+  <div class="chat-popup-body">
+    <div class="chat-popup-form">
+      <input type="text" placeholder="你的姓名" id="evalName">
+      <input type="tel" placeholder="手机号" id="evalPhone">
+      <button type="button" class="btn btn-primary btn-block" id="evalBtn">立即免费评估</button>
+    </div>
+    <div class="chat-popup-trust">
+      <span>🔒 信息加密传输</span>
+      <span>⚡ 5分钟出额度</span>
+      <span>💰 不查征信</span>
+    </div>
+  </div>
+  <div class="chat-popup-footer">贷款有成本，请合理规划还款</div>
 </div>
 
 <!-- 退出弹窗 -->
