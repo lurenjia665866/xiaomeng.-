@@ -364,6 +364,26 @@
 </div>
 
 <!-- 聊天 -->
+<!-- 提交成功弹窗 -->
+<div class="success-popup" id="landingSuccess">
+  <div class="success-popup-card">
+    <div class="success-popup-icon">✓</div>
+    <h3>提交成功！</h3>
+    <p class="sub">专属客户经理将在1分钟内联系您<br>您也可以主动联系我们</p>
+    <div class="success-popup-actions">
+      <a href="tel:400-xxx-xxxx" class="success-btn success-btn-call">
+        <span>📞</span>
+        <span>立即拨打电话</span>
+      </a>
+      <button class="success-btn success-btn-wechat" onclick="alert('企业微信已开通，请联系客服获取二维码')">
+        <span>💬</span>
+        <span>添加企业微信</span>
+      </button>
+    </div>
+    <button class="success-popup-skip" onclick="this.closest('.success-popup').classList.remove('active')">稍后再说</button>
+  </div>
+</div>
+
 <div class="chat-popup" id="evalPopup">
   <div class="chat-popup-header">
     <div class="chat-popup-brand">小萌极速融</div>

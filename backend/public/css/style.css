@@ -291,3 +291,20 @@ ul,ol{list-style:none}
   .float-btn{width:40px;height:40px}
   .chat-popup{right:0.75rem;bottom:calc(1rem+50px);width:calc(100vw-1.5rem)}
 }
+
+/* 成功弹窗 - 高级感 */
+.success-popup{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:1rem}
+.success-popup.active{display:flex}
+.success-popup-card{background:var(--white);border-radius:16px;max-width:360px;width:100%;padding:2.5rem 2rem 1.5rem;text-align:center;position:relative;animation:popIn 0.35s ease;box-shadow:0 20px 60px rgba(0,0,0,0.18)}
+.success-popup-icon{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0f3a7a,#1248A8);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;margin:0 auto 1rem;box-shadow:0 4px 16px rgba(18,72,168,0.25)}
+.success-popup h3{font-size:1.125rem;font-weight:700;color:var(--color-text);margin-bottom:0.375rem}
+.success-popup .sub{font-size:0.8125rem;color:var(--color-text-secondary);line-height:1.6;margin-bottom:1.25rem}
+.success-popup-actions{display:grid;gap:0.625rem;margin-bottom:1rem}
+.success-btn{display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8125rem;border-radius:10px;font-size:0.9375rem;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;text-decoration:none}
+.success-btn-call{background:linear-gradient(135deg,#0f3a7a,#1248A8);color:var(--white)}
+.success-btn-call:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(18,72,168,0.3)}
+.success-btn-wechat{background:linear-gradient(135deg,#07C160,#06ad56);color:var(--white)}
+.success-btn-wechat:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(7,193,96,0.3)}
+.success-popup-skip{background:none;border:none;color:var(--color-text-muted);font-size:0.75rem;cursor:pointer;padding:0.5rem;margin-top:0.25rem}
+.success-popup-skip:hover{color:var(--color-text)}
+@keyframes popIn{from{opacity:0;transform:scale(0.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
