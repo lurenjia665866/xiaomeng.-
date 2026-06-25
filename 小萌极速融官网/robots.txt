@@ -1,0 +1,8 @@
+# 小萌极速融 robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /landing.html
+
+# 站点地图
+Sitemap: https://www.xiaomengjisu.com/sitemap.xml

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小萌极速融 — 管理后台</title>
+<link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+<body>
+
+<!-- ===== 登录页 ===== -->
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <div style="width:48px;height:48px;border-radius:8px;background:#1248A8;color:white;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;margin:0 auto 1rem;">萌</div>
+    <h1>小萌极速融</h1>
+    <p>内容管理系统</p>
+    <div class="form-group">
+      <label>管理密码</label>
+      <input type="password" id="loginPwd" placeholder="输入密码" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()">登录</button>
+    <div class="error" id="loginError">密码错误，请重试</div>
+  </div>
+</div>
+
+<!-- ===== 管理后台主体 ===== -->
+<div id="adminApp" style="display:none;">
+
+  <!-- 侧边栏 -->
+  <div class="sidebar">
+    <div class="sidebar-logo"><span>萌</span><span style="margin-left:0.5rem;">小萌极速融</span></div>
+    <div class="sidebar-nav">
+      <a href="#" class="active" data-tab="dashboard">📊 仪表盘</a>
+      <a href="#" data-tab="seo">🔍 SEO设置</a>
+      <a href="#" data-tab="content">📝 内容编辑</a>
+      <a href="#" data-tab="articles">📰 文章管理</a>
+      <a href="#" data-tab="submissions">📋 线索管理</a>
+      <a href="#" data-tab="upload">🖼️ 上传管理</a>
+      <a href="#" id="logoutBtn" style="margin-top:2rem;color:rgba(255,255,255,0.5);">🚪 退出登录</a>
+    </div>
+  </div>
+
+  <!-- 主内容 -->
+  <div class="main" id="mainContent">
+
+    <!-- 仪表盘 -->
+    <div class="tab-content active" id="tab-dashboard">
+      <div class="main-header"><h1>仪表盘</h1><span class="user" id="dashboardTime"></span></div>
+      <div class="stats-row" id="statsRow"></div>
+      <div class="card"><h2>最近线索</h2><table><thead><tr><th>姓名</th><th>手机号</th><th>车辆类型</th><th>来源</th><th>时间</th><th>状态</th></tr></thead><tbody id="recentSubmissions"></tbody></table></div>
+    </div>
+
+    <!-- SEO设置 -->
+    <div class="tab-content" id="tab-seo">
+      <div class="main-header"><h1>SEO设置</h1></div>
+      <div class="card">
+        <div class="tabs" id="seoTabs"></div>
+        <form id="seoForm">
+          <div class="form-group"><label>页面标题 (Title)</label><input type="text" id="seoTitle"></div>
+          <div class="form-group"><label>关键词 (Keywords)</label><input type="text" id="seoKeywords"></div>
+                    <div class="form-group"><label>描述 (Description)</label><textarea id="seoDescription" rows="3"></textarea></div>
+          <hr style="margin:1rem 0;border-color:#E8EBF0;">
+          <h4 style="font-size:0.875rem;font-weight:600;margin-bottom:0.75rem;color:#1248A8;">OG / 社交分享设置</h4>
+          <div class="form-group"><label>OG 分享标题 (og:title)</label><input type="text" id="seoOgTitle" placeholder="建议≤40字"></div>
+          <div class="form-group"><label>OG 分享描述 (og:description)</label><textarea id="seoOgDesc" rows="2" placeholder="建议≤80字"></textarea></div>
+          <div class="form-group"><label>Canonical URL</label><input type="text" id="seoCanonical" placeholder="https://www.xiaomengjisu.com/"></div>
+          <hr style="margin:1rem 0;border-color:#E8EBF0;">
+          <h4 style="font-size:0.875rem;font-weight:600;margin-bottom:0.75rem;color:#1248A8;">Twitter Card 设置</h4>
+          <div class="form-group"><label>Twitter 标题</label><input type="text" id="seoTwitterTitle"></div>
+          <div class="form-group"><label>Twitter 描述</label><textarea id="seoTwitterDesc" rows="2"></textarea></div>
+          <div class="form-actions"><button type="submit" class="btn btn-primary">保存SEO设置</button></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 内容编辑 -->
+    <div class="tab-content" id="tab-content">
+      <div class="main-header"><h1>内容编辑</h1></div>
+      <div class="tabs" id="contentTabs">
+        <div class="tab active" data-section="hero">首屏文案</div>
+        <div class="tab" data-section="products">产品配置</div>
+        <div class="tab" data-section="advantages">优势文案</div>
+        <div class="tab" data-section="faq">FAQ</div>
+        <div class="tab" data-section="testimonials">客户证言</div>
+      </div>
+
+      <!-- Hero -->
+      <div class="tab-content active" id="content-hero">
+        <div class="card"><form id="heroForm">
+          <div class="form-group"><label>徽标文字</label><input type="text" id="heroBadge"></div>
+          <div class="form-group"><label>标题 (支持HTML)</label><textarea id="heroTitle" rows="2"></textarea></div>
+          <div class="form-group"><label>副标题</label><textarea id="heroSubtitle" rows="3"></textarea></div>
+          <div class="form-group"><label>主按钮文字</label><input type="text" id="heroCta"></div>
+          <div class="form-actions"><button type="submit" class="btn btn-primary">保存首屏</button></div>
+        </form></div>
+      </div>
+
+      <!-- 产品 -->
+      <div class="tab-content" id="content-products">
+        <div id="productsEditor"></div>
+        <div class="card"><div class="form-actions"><button class="btn btn-accent" onclick="addProduct()">+ 新增产品</button></div></div>
+      </div>
+
+      <!-- 优势 -->
+      <div class="tab-content" id="content-advantages">
+        <div id="advantagesEditor"></div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="tab-content" id="content-faq">
+        <div id="faqEditor"></div>
+        <div class="card"><div class="form-actions"><button class="btn btn-accent" onclick="addFaq()">+ 新增FAQ</button></div></div>
+      </div>
+
+      <!-- 证言 -->
+      <div class="tab-content" id="content-testimonials">
+        <div id="testimonialsEditor"></div>
+        <div class="card"><div class="form-actions"><button class="btn btn-accent" onclick="addTestimonial()">+ 新增证言</button></div></div>
+      </div>
+    </div>
+
+    <!-- 文章管理 -->
+    <div class="tab-content" id="tab-articles">
+      <div class="main-header"><h1>文章管理</h1><button class="btn btn-accent" onclick="openArticleModal()">+ 新建文章</button></div>
+      <div class="card">
+        <table><thead><tr><th>ID</th><th>标题</th><th>分类</th><th>日期</th><th>状态</th><th>操作</th></tr></thead><tbody id="articlesTable"></tbody></table>
+        <div class="empty" id="articlesEmpty" style="display:none;">暂无文章</div>
+      </div>
+    </div>
+
+    <!-- 线索管理 -->
+    <div class="tab-content" id="tab-submissions">
+      <div class="main-header"><h1>线索管理</h1></div>
+      <div class="card">
+        <table><thead><tr><th>ID</th><th>姓名</th><th>手机号</th><th>车辆类型</th><th>来源</th><th>时间</th><th>状态</th><th>操作</th></tr></thead><tbody id="submissionsTable"></tbody></table>
+        <div class="empty" id="submissionsEmpty" style="display:none;">暂无线索</div>
+      </div>
+    </div>
+
+    <!-- 上传 -->
+    <div class="tab-content" id="tab-upload">
+      <div class="main-header"><h1>上传管理</h1></div>
+      <div class="card">
+        <div class="form-group">
+          <label>选择图片</label>
+          <input type="file" id="uploadInput" accept="image/*">
+        </div>
+        <button class="btn btn-primary" onclick="doUpload()">上传</button>
+        <div id="uploadResult" style="margin-top:1rem;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 文章编辑弹窗 -->
+<div class="modal" id="articleModal">
+  <div class="modal-card">
+    <h3 id="articleModalTitle">新建文章</h3>
+    <form id="articleForm">
+      <div class="form-group"><label>文章标题</label><input type="text" id="articleTitle"></div>
+      <div class="form-group"><label>摘要</label><textarea id="articleSummary" rows="2"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>分类</label><input type="text" id="articleCategory" placeholder="车抵贷知识/征信科普"></div>
+        <div class="form-group"><label>发布日期</label><input type="date" id="articleDate"></div>
+      </div>
+            <div class="form-group"><label>正文内容</label><textarea id="articleContent" rows="8"></textarea></div>
+      <hr style="margin:1rem 0;border-color:#E8EBF0;">
+      <h4 style="font-size:0.875rem;font-weight:600;margin-bottom:0.75rem;color:#1248A8;">SEO 设置</h4>
+      <div class="form-group"><label>URL 标识 (slug)</label><input type="text" id="articleSlug" placeholder="如 chezheng-buya-che"></div>
+      <div class="form-group"><label>独立 Meta Title</label><input type="text" id="articleMetaTitle" placeholder="留空则复用文章标题"></div>
+      <div class="form-group"><label>独立 Meta Description</label><textarea id="articleMetaDesc" rows="2" placeholder="留空自动生成"></textarea></div>
+      <div class="form-group"><label>Meta Keywords</label><input type="text" id="articleKeywords" placeholder="关键词,逗号分隔"></div>
+      <div class="form-row">
+        <div class="form-group"><label><input type="checkbox" id="articlePublished" checked> 发布</label></div>
+        <div class="form-group"><label><input type="checkbox" id="articleIsNoindex"> 禁止搜索引擎收录 (noindex)</label></div>
+      </div>
+      <div class="form-group"><label>自定义 Canonical URL</label><input type="text" id="articleCanonical" placeholder="留空自动生成"></div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" onclick="closeArticleModal()">取消</button>
+        <button type="submit" class="btn btn-primary">保存文章</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 信息提示 -->
+<div id="messageBox" class="message"></div>
+
+<script src="/admin/js/admin.js"></script>
+</body>
+</html>
