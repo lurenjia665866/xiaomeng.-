@@ -111,5 +111,40 @@
 </div>
 
 <script src="/js/main.js"></script>
+<script>
+// 落地页表单提交
+(function(){
+  var form=document.getElementById('landingForm');
+  if(!form)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=form.querySelector('button[type="submit"]');
+    var name=form.querySelector('[name="name"]').value.trim();
+    var phone=form.querySelector('[name="phone"]').value.trim();
+    var vtype=form.querySelector('[name="vehicle_type"]').value;
+    if(!name||!phone||phone.length<11){alert('请填写完整信息');return;}
+    btn.textContent='提交中...';btn.disabled=true;
+    fetch('/api/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:name,phone:phone,vehicle_type:vtype||''})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.error){
+        btn.textContent='立即免费评估额度';btn.disabled=false;
+        alert(d.error);return;
+      }
+      btn.textContent='\u2713 提交成功';btn.style.background='#22c55e';
+      form.reset();
+      setTimeout(function(){
+        btn.textContent='立即免费评估额度';btn.disabled=false;
+        btn.style.background='';
+      },3000);
+    }).catch(function(){
+      btn.textContent='网络异常，请重试';btn.disabled=false;
+      setTimeout(function(){btn.textContent='立即免费评估额度';btn.style.background='';},2000);
+    });
+  });
+})();
+</script>
 </body>
 </html>
